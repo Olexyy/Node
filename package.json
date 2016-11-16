@@ -16,11 +16,12 @@
 	"morgan":"x.x",
 	"express-session":"x.x",
 	"body-parser":"x.x",
-	"method-override":"x.x"
+	"method-override":"x.x",
+	"jade":"x.x"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://github.com/Olexyy/Node"
   },
   "keywords": [
     "node",

@@ -5,8 +5,11 @@
 //var db = require('../../db');
 
 var pg = require('pg');
-var conUrl ="dbname=d7rgmijffbh24m host=ec2-54-83-44-117.compute-1.amazonaws.com port=5432 user=cixieeokomqzmo password=LQsnjqm9C0D8z10cTuovItu0HT sslmode=require";
-//process.env.DATABASE_URL
+var connStr = process.env.DATABASE_URL || 'postgres://postgres:root@localhost:5432/postgres';
+var conUri ="postgres://cixieeokomqzmo:LQsnjqm9C0D8z10cTuovItu0HT@ec2-54-83-44-117.compute-1.amazonaws.com:5432/d7rgmijffbh24m";
+console.log("!!!!!!!"+process.env.DATABASE_URL);
+console.log("!!!!!!!"+pg);
+console.log("!!!!!!!"+connStr);
 exports.before = function(req, res, next){
   var id = req.params.user_id;
   if (!id) return next();
@@ -21,7 +24,7 @@ exports.before = function(req, res, next){
 };
 
 exports.list = function(req, res, next){
-	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+	pg.connect(connStr, function(err, client, done) {
 		client.query('SELECT * FROM employees', function(err, result) {
 			done();
 			if (err) {
