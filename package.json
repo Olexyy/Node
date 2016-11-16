@@ -12,7 +12,11 @@
   "dependencies": {
 	"pg": "4.x",
     "ejs": "2.4.1",
-    "express": "4.13.3"
+    "express": "4.13.3",
+	"morgan":"x.x",
+	"express-session":"x.x",
+	"body-parser":"x.x",
+	"method-override":"x.x"
   },
   "repository": {
     "type": "git",
