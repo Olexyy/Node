@@ -2,8 +2,8 @@ var express = require('express');
 var app = express();
 app.set ('pg', (require('pg')));
 app.set ('connStr', (process.env.DATABASE_URL || 'postgres://postgres:root@localhost:5432/postgres')); 
-/*app.set('port', (process.env.PORT || 5000));
-
+app.set('port', (process.env.PORT || 5000));
+/*
 app.use(express.static(__dirname + '/public'));
 
 // views is directory for all template files
@@ -124,8 +124,9 @@ app.use(function(req, res, next){
 
 /* istanbul ignore next */
 if (!module.parent) {
-  app.listen(3000);
-  console.log('Express started on port 3000');
+  app.listen(app.get('port'), function() {
+		console.log('Node app is running on port', app.get('port'));
+	});
 }
 
 
