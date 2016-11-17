@@ -1,8 +1,7 @@
-var express = require('express');
-var app = express();
-app.set ('pg', (require('pg')));
-app.set ('connStr', (process.env.DATABASE_URL || 'postgres://postgres:root@localhost:5432/postgres')); 
-app.set('port', (process.env.PORT || 5000));
+//var express = require('express');
+//var app = express();
+
+
 /*
 app.use(express.static(__dirname + '/public'));
 
@@ -43,7 +42,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
 var app = module.exports = express();
-
+app.set('port', (process.env.PORT || 5000));
 // settings
 
 // set our default template engine to "jade"
