@@ -7,9 +7,6 @@
 var pg = require('pg');
 var connStr = process.env.DATABASE_URL || 'postgres://postgres:root@localhost:5432/postgres';
 var conUri ="postgres://cixieeokomqzmo:LQsnjqm9C0D8z10cTuovItu0HT@ec2-54-83-44-117.compute-1.amazonaws.com:5432/d7rgmijffbh24m";
-console.log("!!!!!!!"+process.env.DATABASE_URL);
-console.log("!!!!!!!"+pg);
-console.log("!!!!!!!"+connStr);
 exports.before = function(req, res, next){
   var id = req.params.user_id;
   if (!id) return next();

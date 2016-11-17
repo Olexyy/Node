@@ -1,3 +1,4 @@
 exports.index = function(req, res){
-  res.redirect('/users');
+	exports.engine = 'ejs';
+	res.render('template.ejs', null);
 };
