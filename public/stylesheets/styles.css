@@ -21,6 +21,13 @@ body > .container {
   padding: 60px 20px 200px;
   background-color: rgba(100, 100, 100, 0.15);
 }
+div.page-header{
+	border-bottom-color: darkgray;
+}
+div.col-sm-6{
+	margin: 5px 0 5px 0;
+	padding: 5px 0 5px 0;
+}
 .under-menu {
   position: absolute;
   bottom: 120px;
