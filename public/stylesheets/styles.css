@@ -14,10 +14,10 @@ body {
   position: absolute;
   bottom: 120px;
   width: 100%;
-  /* Set the fixed height of the footer here */
+  /* Set the fixed height of the under menu */
   height: 60px;
-  background-color: rgba(245, 245, 245, 0.98);
-  opacity: 0.5;
+  background-color: rgba(245, 245, 245, 0.0);
+  opacity: 0.7;
 }
 .footer {
   position: absolute;
@@ -32,10 +32,10 @@ body {
 
 /* Custom page CSS
 -------------------------------------------------- */
-/* Not required for template or sticky footer method. */
 
 body > .container {
   padding: 60px 15px 180px;
+  background-color: rgba(100, 100, 100, 0.15);
 }
 .container .text-muted {
   margin: 20px 0;
@@ -54,50 +54,27 @@ div.logo {
   display: inline-block;
 }
 
-/* game styles */
-div.game {
+div.teaser {
   display: inline-block;
   width: 90%;
-  border: solid 1px darkgrey;
-  text-align: center;
-  font: 20px normal;
+  border: solid 0px grey;
   vertical-align: center;
   margin: 5px;
-  opacity: 0.5;
-  background-color: #0c0c0c;
-  color: white;
-}
-div.game div.used-letters-container {
-  min-height: 60px;
-}
-
-div.game div.letter {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
   text-align: center;
-  border: solid 1px darkgrey;
-  margin: 5px;
-  padding: 11px;
-  vertical-align:top;
+  height: 300px;
+  
 }
-div.game div.word {
-  display: none;
+div.teaser div.picture-container{
+  display: inline-block;
+  background-color: rgba(100, 100, 100, 0.3);
+  min-width: 500px;
+  min-height: 250px;
+  width: 90%;
 }
-div.game div.letter.unsolved {
-  font-size: 0;
-}
-div.game div.used-letters-container,
-div.game div.guess-letters-container,
-div.game div.unused-letters-container,
-div.game div.counter-container {
-  margin: 10px 0;
-}
-div.game div.counter {
-  display: inline;
-}
-div.game div.counter-container,
-div.game div.refresh {
-  display: inline;
-  font-size: 14px;
+div.teaser div.picture-container div.picture {
+  background: url("../teaser.png") no-repeat 0px 0px;
+  background-size: 100% 100%;
+  width: 500px;
+  height: 250px;
+  display: inline-block;
 }

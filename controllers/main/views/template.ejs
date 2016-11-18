@@ -42,19 +42,13 @@
       <div class="page-header">
         <h1>Вітаємо на порталі правової допомоги!</h1>
       </div>
-      <p class="lead">Лорем іпсум долор сіт амет ...</p>
+      <!--<p class="lead">Лорем іпсум долор сіт амет ...</p>
       <p class=>Вюшки рендеряться на Лоремі ...</p>
-      <!-- GAME -->
-      <div class="game">
-        <div>G U E S S &nbsp W O R D <br /><sub>powered by www.setgetgo.com</sub></div>
-        <div class="word">ABRACADABRA</div>
-        <div class="used-letters-container"></div>
-        <div class="guess-letters-container"></div>
-        <div class="unused-letters-container"></div>
-        <div class="counter-container">letters used:
-          <div class="counter"></div>
-          <div class="refresh"><u> refresh </u></div>
-        </div>
+       -->
+      <div class="teaser">
+	   <div class="picture-container">
+        <div class="picture"></div>
+	   </div>
       </div>
     </div>
     <div class="under-menu">
@@ -77,52 +71,5 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <script>
-    jQuery(document).ready(function($) {
-      var alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('');
-      randomWord();
-      //var word = $('.word').text().toUpperCase().split(''); // if word is rendered on server
-      // get random word
-      function randomWord() {
-        $.get("http://www.setgetgo.com/randomword/get.php").complete(function (data) {
-          fillIn('.guess-letters-container', data.responseText.toUpperCase().split(''), 'letter unsolved');
-          fillIn('.unused-letters-container', alphabet, 'letter alphabet');
-          $('.counter').text('0');
-          bindEvents();
-        });
-      }
-      // fill elements
-      function fillIn (target, context, classes) {
-        $.each(context, function (index, char) {
-          var div = document.createElement('div');
-          $(div).addClass(classes);
-          $(div).text(char);
-          $(target).append($(div));
-        });
-      }
-      // event binding
-      function bindEvents(){
-        $('.letter.alphabet').on('click', function(e) {
-          $(this).removeClass('alphabet');
-          var char = $(this).text();
-          var div = $(this).detach();
-          div.appendTo('.used-letters-container');
-          $('.guess-letters-container .letter.unsolved').each(function (index, element) {
-            if ($(this).text() === char) {
-              $(this).removeClass('unsolved');
-            }
-          });
-          $('.counter').text(parseInt($('.counter').text())+1);
-        });
-        $('.refresh').one('click', function(e) {
-          $('.guess-letters-container').empty();
-          $('.unused-letters-container').empty();
-          $('.used-letters-container').empty();
-          // if word is rendered on server call: window.refresh();
-          randomWord();
-        });
-      }
-    });
-  </script>
   </body>
 </html>
