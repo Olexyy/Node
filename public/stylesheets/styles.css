@@ -5,10 +5,21 @@ html {
   min-height: 100%;
 }
 body {
-  /* Margin bottom by footer height */
   margin-bottom: 60px;
   background: url("../background.png") repeat 0 0;
   background-size: 150px;
+}
+div.logo {
+  background: url("../logo.png") no-repeat 10px 5px;
+  background-size: 35px;
+  width: 55px;
+  height: 45px;
+  display: inline-block;
+}
+body > .container {
+	/* Set the bottom pading of the under menu because of header and footer */
+  padding: 60px 20px 200px;
+  background-color: rgba(100, 100, 100, 0.15);
 }
 .under-menu {
   position: absolute;
@@ -23,58 +34,59 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
+  /* Set the fixed height of the under menu */
   height: 120px;
-  background-color: #bbbbbb; /*F5F5F5*/
+  background-color: #bbbbbb;
   padding: 15px 0 15px 0;
 }
-
-
-/* Custom page CSS
--------------------------------------------------- */
-
-body > .container {
-  padding: 60px 15px 180px;
-  background-color: rgba(100, 100, 100, 0.15);
-}
-.container .text-muted {
-  margin: 20px 0;
-}
-
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
 }
-
-div.logo {
-  background: url("../logo.png") no-repeat 10px 5px;
-  background-size: 35px;
-  width: 55px;
-  height: 45px;
-  display: inline-block;
+.container .text-muted {
+  margin: 20px 0;
 }
-
-div.teaser {
-  display: inline-block;
-  width: 90%;
-  border: solid 0px grey;
-  vertical-align: center;
-  margin: 5px;
-  text-align: center;
-  height: 300px;
-  
+div.inspector{
+	background: url("../inspector.png") no-repeat 0 0;
+	background-size: 100%;
 }
-div.teaser div.picture-container{
-  display: inline-block;
-  background-color: rgba(100, 100, 100, 0.3);
-  min-width: 500px;
-  min-height: 250px;
-  width: 90%;
+div.protocol{
+	background: url("../protocol.png") no-repeat 0 0;
+	background-size: 100%;
 }
-div.teaser div.picture-container div.picture {
-  background: url("../teaser.png") no-repeat 0px 0px;
-  background-size: 100% 100%;
-  width: 500px;
-  height: 250px;
-  display: inline-block;
+div.expensive{
+	background: url("../expensive.png") no-repeat 0 0;
+	background-size: 100%;
+}
+div.laws{
+	background: url("../laws.png") no-repeat 0 0;
+	background-size: 100%;
+}
+div.alone{
+	background: url("../alone.png") no-repeat 0 0;
+	background-size: 100%;
+}
+div.but{
+	background: url("../but.png") no-repeat 0 0;
+	background-size: 100%;
+}
+div.idea{
+	background: url("../idea.png") no-repeat 0 0;
+	background-size: 100%;
+}
+div.go{
+	background: url("../go.png") no-repeat 0 0;
+	background-size: 100%;
+}
+div.teaser-icon {
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+	vertical-align: middle;
+}
+p.teaser-text {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0;
+	width: 75%;
 }
