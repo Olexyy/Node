@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags must come first in the head; any other head content must come after these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/icon.png">
+    <title>Web application | Calculator</title>
+    <!-- Custom styles -->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css" />
+	<script>
+            window.onload = function () {
+                buttons.onmouseover = function (e) {
+                    if (e.target.tagName === 'INPUT') {
+                        e.target.classList.add('hover');
+                    }
+                };
+                buttons.onmouseout = function (e) {
+                    if (e.target.tagName === 'INPUT') {
+                        e.target.classList.remove('hover');
+                    }
+                };
+                buttons.onclick = function (e) {
+                    if (e.target.tagName === 'INPUT') {
+                        var n = parseInt(e.target.value);
+                        if (!isNaN(n)) {
+                            calc.numberClick(n, bottom);
+                            return;
+                        }
+                        if (e.target.value == "+" ||
+                            e.target.value == "-" ||
+                            e.target.value == "*" ||
+                            e.target.value == "/") {
+                            calc.operationClick(e.target.value, exp, bottom);
+                            return;
+                        }
+                        if (e.target.value == '=') {
+                            if (calc.expoperation == '') return;
+                            bottom.value = calc.equalClick(calc.expoperation, calc.expvalue, +bottom.value);
+                            exp.value = "";
+                            calc.flag = true;
+                            calc.expvalue = 0;
+                            calc.expoperation = '';
+                            return;
+                        }
+                        if (e.target.value == 'C') {
+                            exp.value = '';
+                            bottom.value = '0';
+                            calc.flag = false;
+                            calc.expvalue = 0;
+                            calc.expoperation = '';
+                            return;
+                        }
+						if(e.target.value == '.') {
+							if(bottom.value.indexOf('.') == -1){
+								bottom.value += '.';
+							}
+						}
+						if(e.target.value == '√') {
+							calc.operationClick(e.target.value, exp, bottom);
+						}
+                    }
+                }
+                var calc = {
+                    '+' : function (a, b) { return a + b; },
+                    '-' : function (a, b) { return a - b; },
+                    '*' : function (a, b) { return a * b; },
+                    '/' : function (a, b) { return a / b; },
+                    flag: false,
+                    expvalue: 0,
+                    expoperation: '',
+                    numberClick: function (n, input) {
+                        if (+input.value == 0 && input.value.indexOf('.') == -1 || this.flag) {
+                            input.value = n;
+                            this.flag = false;
+                            return;
+                        }
+                        input.value += n;
+                    },
+                    operationClick: function (oper, exp, bottom) {
+                        exp.value += bottom.value + oper;
+						if (this.expoperation == '' && oper != '√') {
+                            this.expvalue = +bottom.value;
+                        }
+						else if (oper == '√') {
+							this.expvalue = Math.sqrt(+bottom.value)
+                            bottom.value = this.expvalue;
+							return;
+                        }
+                        else {
+                            this.expvalue = this.equalClick(this.expoperation, this.expvalue, +bottom.value);
+                            bottom.value = this.expvalue;
+                        }
+                        //this.expoperation = +bottom.value;
+                        this.flag = true;
+                        this.expoperation = oper;
+                    },
+                    equalClick: function (oper, a, b) {
+						//var func = calc[oper];
+                        return this[oper](a, b);
+                    }
+                };
+            }
+        </script>
+  </head>
+  <body class="calculator">
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <div class="logo"><a class="navbar-brand" href="/"></a></div>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Main</a></li>
+            <li><a href="/guess">Guess word</a></li>
+            <li class="active"><a href="/calculator">Calculator</a></li>
+            <li><a href="#contact">About</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <!-- Begin page content -->
+    <div class="container">
+		<!--Calculator-->
+      <div class="row">
+		  <div class="calculator-header page-header col-sm-12">
+			<h1>C A L C U L A T O R</h1>
+		  </div>
+	  </div>
+	  <div class="row">
+		<div class="col-sm-12">
+			<div id="calculator">
+				<div id="line">
+					<input id="exp" type="text" value="" readonly />
+					<input id="bottom" type="text" value="0" readonly />
+				</div>
+				<div id="buttons">
+					<div class="button-row">
+						<input type="button" value="7"><!--
+						--><input type="button" value="8"><!--
+						--><input type="button" value="9"><!--
+						--><input type="button" value="/"><!--
+						--><input type="button" value="C">
+					</div>
+					<div class="button-row">
+					   <input type="button" value="4"><!--
+					--><input type="button" value="5"><!--
+					--><input type="button" value="6"><!--
+					--><input type="button" value="*"><!--
+					--><input type="button" value="&#8730">
+					</div><!--
+					--><input class="equal" type="button" value="=" />
+					<div class="button-row">
+						<input type="button" value="1"><!--
+					--><input type="button" value="2"><!--
+					--><input type="button" value="3"><!--
+					--><input type="button" value="-">
+					</div>
+					<div class="button-row">
+						<input class="zero" type="button" value="0"><!--
+					--><input type="button" value="."><!--
+					--><input type="button" value="+">
+					</div>
+			   </div>
+			</div>
+		</div>
+	  </div>  
+	</div>
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">&copy; 2016</p>
+      </div>
+    </footer>
+    <!-- Bootstrap core JavaScript and jQuery
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+</html>

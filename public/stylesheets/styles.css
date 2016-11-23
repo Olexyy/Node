@@ -5,95 +5,164 @@ html {
   min-height: 100%;
 }
 body {
+  /* Margin bottom by footer height */
   margin-bottom: 60px;
   background: url("../background.png") repeat 0 0;
-  background-size: 150px;
+  background-size: 300px;
 }
-div.logo {
-  background: url("../logo.png") no-repeat 10px 5px;
-  background-size: 35px;
-  width: 55px;
-  height: 45px;
-  display: inline-block;
+body.guess{
+  margin-bottom: 60px;
+  background: url("../background.png") repeat 0 0;
+  background-size: 350px;
 }
-body > .container {
-	/* Set the bottom pading of the under menu because of header and footer */
-  padding: 60px 20px 200px;
-  background-color: rgba(100, 100, 100, 0.15);
-}
-div.page-header{
-	border-bottom-color: darkgray;
-}
-div.col-sm-6{
-	margin: 5px 0 5px 0;
-	padding: 5px 0 5px 0;
+body.calculator{
+  margin-bottom: 60px;
+  background: url("../digits.png") repeat 0 0;
+  background-size: 200px;
 }
 .under-menu {
   position: absolute;
   bottom: 120px;
   width: 100%;
-  /* Set the fixed height of the under menu */
+  /* Set the fixed height of the footer here */
   height: 60px;
-  background-color: rgba(245, 245, 245, 0.0);
-  opacity: 0.7;
+  background-color: rgba(245, 245, 245, 0.98);
+  opacity: 0.5;
 }
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the under menu */
+  /* Set the fixed height of the footer here */
   height: 120px;
-  background-color: #bbbbbb;
+  background-color: #bbbbbb; /*F5F5F5*/
   padding: 15px 0 15px 0;
 }
-.footer > .container {
-  padding-right: 15px;
-  padding-left: 15px;
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+.calculator-header{
+	text-align: center;
+	color: rgba(0, 0, 0, 0.5);
+}
+
+body > .container {
+  padding: 60px 15px 180px;
 }
 .container .text-muted {
   margin: 20px 0;
 }
-div.inspector{
-	background: url("../inspector.png") no-repeat 0 0;
-	background-size: 100%;
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
 }
-div.protocol{
-	background: url("../protocol.png") no-repeat 0 0;
-	background-size: 100%;
+
+div.logo {
+  background: url("../logo.png") no-repeat 10px 7px;
+  background-size: 35px;
+  width: 55px;
+  height: 45px;
+  display: inline-block;
 }
-div.expensive{
-	background: url("../expensive.png") no-repeat 0 0;
-	background-size: 100%;
+
+/* game styles */
+div.game {
+  display: inline-block;
+  width: 90%;
+  border: solid 1px darkgrey;
+  text-align: center;
+  font: 20px normal;
+  vertical-align: center;
+  margin: 5px;
+  opacity: 0.5;
+  background-color: #0c0c0c;
+  color: white;
 }
-div.laws{
-	background: url("../laws.png") no-repeat 0 0;
-	background-size: 100%;
+div.game div.used-letters-container {
+  min-height: 60px;
 }
-div.alone{
-	background: url("../alone.png") no-repeat 0 0;
-	background-size: 100%;
+
+div.game div.letter {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border: solid 1px darkgrey;
+  margin: 5px;
+  padding: 11px;
+  vertical-align:top;
 }
-div.but{
-	background: url("../but.png") no-repeat 0 0;
-	background-size: 100%;
+div.game div.word {
+  display: none;
 }
-div.idea{
-	background: url("../idea.png") no-repeat 0 0;
-	background-size: 100%;
+div.game div.letter.unsolved {
+  font-size: 0;
 }
-div.go{
-	background: url("../go.png") no-repeat 0 0;
-	background-size: 100%;
+div.game div.used-letters-container,
+div.game div.guess-letters-container,
+div.game div.unused-letters-container,
+div.game div.counter-container {
+  margin: 10px 0;
 }
-div.teaser-icon {
-	display: inline-block;
-	width: 80px;
-	height: 80px;
-	vertical-align: middle;
+div.game div.counter {
+  display: inline;
 }
-p.teaser-text {
-	display: inline-block;
-	vertical-align: middle;
-	margin: 0;
-	width: 75%;
+div.game div.counter-container,
+div.game div.refresh {
+  display: inline;
+  font-size: 14px;
+}
+div#calculator{
+    width: 216px;
+    margin: 20px auto;
+    border: solid 1px gray;
+    padding: 2px;
+	background-color: rgba(100,100,100,0.3);
+	color: gray;
+}
+div#calculator #line input[type='text']{
+    width: 208px;
+    display: block;
+    text-align: right;
+    border: solid 1px gray;
+    padding: 2px 10px;
+    margin: 0 1px;
+}
+div#calculator #line input#exp{
+    margin-top: 2px;
+    border-bottom: none;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Verdana;
+}
+div#calculator #line input#bottom{
+    border-top: none;
+    margin-bottom: 2px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Verdana;
+}
+div#calculator #buttons input[type='button']{
+    width: 40px;
+    height: 30px;
+    margin: 1px;
+	opacity: 0.9;
+}
+div#calculator #buttons input.equal{
+    width: 40px;
+    height: 62px;
+    float: right;
+    margin: 1px;
+}
+div#calculator #buttons input[type='button'].zero{
+    width: 82px;
+    height: 30px;
+    margin: 1px;
+}
+.hover{
+    color: black !important;
+	opacity: 1 !important;
 }

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags must come first in the head; any other head content must come after these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/icon.png">
+    <title>Web application | Guess word</title>
+    <!-- Custom styles -->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css" />
+  </head>
+  <body class="guess">
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <div class="logo"><a class="navbar-brand" href="/"></a></div>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Main</a></li>
+            <li class="active"><a href="#about">Guess word</a></li>
+            <li><a href="/calculator">Calculator</a></li>
+            <li><a href="#contact">About</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <!-- Begin page content -->
+    <div class="container">
+    	<!-- Views go here -->
+      <div class="page-header">
+        <h1>G U E S S &nbsp W O R D</h1>
+      </div>
+      <p></p> <!--class="lead"-->
+      <!-- GAME -->
+      <div class="game">
+        <div class="word">ABRACADABRA</div>
+        <div class="used-letters-container"></div>
+        <div class="guess-letters-container"></div>
+        <div class="unused-letters-container"></div>
+        <div class="counter-container">letters used:
+          <div class="counter"></div>
+          <div class="refresh"><u> reload </u></div>
+        </div>
+      </div>
+    </div>
+    <div class="under-menu">
+      <div class="container">
+        <p>powered by www.setgetgo.com</p>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">&copy; 2016</p>
+      </div>
+    </footer>
+    <!-- Bootstrap core JavaScript and jQuery
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script>
+    jQuery(document).ready(function($) {
+      var alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('');
+      randomWord();
+      //var word = $('.word').text().toUpperCase().split(''); // if word is rendered on server
+      // get random word
+      function randomWord() {
+        $.get("http://www.setgetgo.com/randomword/get.php").complete(function (data) {
+          fillIn('.guess-letters-container', data.responseText.toUpperCase().split(''), 'letter unsolved');
+          fillIn('.unused-letters-container', alphabet, 'letter alphabet');
+          $('.counter').text('0');
+          bindEvents();
+        });
+      }
+      // fill elements
+      function fillIn (target, context, classes) {
+        $.each(context, function (index, char) {
+          var div = document.createElement('div');
+          $(div).addClass(classes);
+          $(div).text(char);
+          $(target).append($(div));
+        });
+      }
+      // event binding
+      function bindEvents(){
+        $('.letter.alphabet').on('click', function(e) {
+          $(this).removeClass('alphabet');
+          var char = $(this).text();
+          var div = $(this).detach();
+          div.appendTo('.used-letters-container');
+          $('.guess-letters-container .letter.unsolved').each(function (index, element) {
+            if ($(this).text() === char) {
+              $(this).removeClass('unsolved');
+            }
+          });
+          $('.counter').text(parseInt($('.counter').text())+1);
+        });
+        $('.refresh').one('click', function(e) {
+          $('.guess-letters-container').empty();
+          $('.unused-letters-container').empty();
+          $('.used-letters-container').empty();
+          // if word is rendered on server call: window.refresh();
+          randomWord();
+        });
+      }
+    });
+  </script>
+  </body>
+</html>
