@@ -66,7 +66,7 @@ exports.fill = (req, res, next) => {
 	  }
     });
 	// fill table with data
-	/*dictionary.forEach((word, idx) => {
+	dictionary.forEach((word, idx) => {
 		word = word.toUpperCase();
 		client.query('INSERT INTO vocabulary (text) VALUES ($1);', [word], function (err, result) {
 		  done(); //this done callback signals the pg driver that the connection can be closed or returned to the connection pool
@@ -78,7 +78,7 @@ exports.fill = (req, res, next) => {
 			console.log('Value '+(idx+1)+' inserted.');
 		  }
 		});
-	});*/
+	});
 	// select all from 
 	client.query('SELECT * FROM vocabulary ', [], function (err, result) {
       done(); //this done callback signals the pg driver that the connection can be closed or returned to the connection pool
