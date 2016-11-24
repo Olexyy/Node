@@ -45,11 +45,11 @@
       <p></p> <!--class="lead"-->
       <!-- GAME -->
       <div class="game">
-        <div class="word"><%= data %></div>
+        <div class="word">{data}</div>
         <div class="used-letters-container"></div>
         <div class="guess-letters-container"></div>
         <div class="unused-letters-container"></div>
-        <div class="counter-container"><span class="text">letters used:</span>
+        <div class="counter-container">letters used:
           <div class="counter"></div>
           <div class="refresh"><u> reload </u></div>
         </div>
@@ -57,7 +57,7 @@
     </div>
     <div class="under-menu">
       <div class="container">
-        <p>powered by: Node JS, PostgreSQL, Bootstrap, jQuery and Heroku</p>
+        <p>powered by www.setgetgo.com</p>
       </div>
     </div>
     <footer class="footer">
@@ -78,15 +78,16 @@
 	<script>
     jQuery(document).ready(function($) {
       var alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('');
-      var end = false;
-	  randomWord();
+      randomWord();
+      //var word = $('.word').text().toUpperCase().split(''); // if word is rendered on server
       // get random word
       function randomWord() {
-		  var word = $('.word').text().toUpperCase().split('');
-          fillIn('.guess-letters-container', word, 'letter unsolved');
+        $.get("http://www.setgetgo.com/randomword/get.php").complete(function (data) {
+          fillIn('.guess-letters-container', data.responseText.toUpperCase().split(''), 'letter unsolved');
           fillIn('.unused-letters-container', alphabet, 'letter alphabet');
           $('.counter').text('0');
           bindEvents();
+        });
       }
       // fill elements
       function fillIn (target, context, classes) {
@@ -100,30 +101,23 @@
       // event binding
       function bindEvents(){
         $('.letter.alphabet').on('click', function(e) {
-		  if(!end) {
-			  $(this).removeClass('alphabet');
-			  var char = $(this).text();
-			  var div = $(this).detach();
-			  div.appendTo('.used-letters-container');
-			  var win = true;
-			  $('.guess-letters-container .letter.unsolved').each(function (index, element) {
-				if ($(this).text() === char) {
-				  $(this).removeClass('unsolved');
-				}
-				if(($(this).attr('class')).indexOf('unsolved') != -1){
-					win = false;
-				}
-			  });
-			  $('.counter').text(parseInt($('.counter').text())+1);
-			  if(win){
-				end = true;
-				$('.counter').text('End of game: solved with result: ' + $('.counter').text()+' letters.');
-				$('.text').text('');
-			  }
-		  }
+          $(this).removeClass('alphabet');
+          var char = $(this).text();
+          var div = $(this).detach();
+          div.appendTo('.used-letters-container');
+          $('.guess-letters-container .letter.unsolved').each(function (index, element) {
+            if ($(this).text() === char) {
+              $(this).removeClass('unsolved');
+            }
+          });
+          $('.counter').text(parseInt($('.counter').text())+1);
         });
         $('.refresh').one('click', function(e) {
-			window.location.reload();
+          $('.guess-letters-container').empty();
+          $('.unused-letters-container').empty();
+          $('.used-letters-container').empty();
+          // if word is rendered on server call: window.refresh();
+          randomWord();
         });
       }
     });
