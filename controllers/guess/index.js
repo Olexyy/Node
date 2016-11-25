@@ -68,7 +68,7 @@ exports.fill = (req, res, next) => {
     });
 	// fill table with data
 	var counter;
-	dictionary.forEach((word, idx, array) => {
+	bigger_dictionary.forEach((word, idx, array) => {
 		word = word.toUpperCase();
 		client.query('INSERT INTO vocabulary (text) VALUES ($1);', [word], function (err, result) {
 		  done(); //this done callback signals the pg driver that the connection can be closed or returned to the connection pool
@@ -105,6 +105,27 @@ exports.watch = (req, res, next)=>{
 			}
 	  		else {
 				res.render('watch.jade', { data: result.rows });
+	  		}
+		});
+	});
+};
+exports.clear = (req, res, next)=>{
+	exports.engine = 'jade';
+	const pg = require('pg');
+	const connStr = process.env.DATABASE_URL || 'postgres://postgres:root@localhost:5432/postgres';
+	pg.connect(connStr, (err, client, done) => {
+		if (err) {
+			// pass the error to the express error handler
+			return next(err);
+		}
+		client.query('DELETE FROM vocabulary ', [], (err, result) => {
+			done(); //this done callback signals the pg driver that the connection can be closed
+			if (err) {
+				// pass the error to the express error handler
+				return next(err);
+			}
+	  		else {
+				res.render('query.jade', { result: JSON.stringify(result) });
 	  		}
 		});
 	});
