@@ -21,8 +21,9 @@ exports.view = (req, res, next) => {
 			// Random id;
 			id = Math.floor(Math.random() * (+count) + 1);
 			console.log('Random number: ' + id);
+			id--; // id will be offset so decrement it
 			// select by id
-			client.query('SELECT * FROM vocabulary WHERE id=($1)', [id], function (err, result) {
+			client.query('SELECT * FROM vocabulary LIMIT 1 OFFSET ($1)', [id], function (err, result) {
 			  done(); //this done callback signals the pg driver that the connection can be closed
 			  if (err) {
 				// pass the error to the express error handler
@@ -67,7 +68,6 @@ exports.fill = (req, res, next) => {
 	  }
     });
 	// fill table with data
-	var counter;
 	bigger_dictionary.forEach((word, idx, array) => {
 		word = word.toUpperCase();
 		client.query('INSERT INTO vocabulary (text) VALUES ($1);', [word], function (err, result) {
@@ -77,11 +77,10 @@ exports.fill = (req, res, next) => {
 			return next(err);
 		  }
 		  else {
-			counter++;
-			console.log('Value #' + counter + ' inserted.');
-			if(counter === array.length){
-				console.log('Total #' + counter + ' inserted.');
-				res.render('query.jade', { result: 'Inserted ' + counter + ' rows.' });
+			console.log('Value #' + (idx+1) + ' inserted.');
+			if(idx+1 === array.length){
+				console.log('Total #' + (idx+1) + ' inserted.');
+				res.render('query.jade', { result: 'Inserted ' + (idx+1) + ' rows.' });
 			}  
 		  }
 		});
