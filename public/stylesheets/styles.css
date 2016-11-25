@@ -7,8 +7,8 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
-  background: url("../background.png") repeat 0 0;
-  background-size: 300px;
+  background: url("../nodejs.png") repeat 0 0;
+  background-size: 100%;
 }
 body.guess{
   margin-bottom: 60px;
@@ -61,9 +61,9 @@ body > .container {
 }
 
 div.logo {
-  background: url("../logo.png") no-repeat 10px 7px;
-  background-size: 35px;
-  width: 55px;
+  background: url("../logo.png") no-repeat 10px 5px;
+  background-size: 40px;
+  width: 60px;
   height: 45px;
   display: inline-block;
 }
