@@ -58,7 +58,7 @@ exports.fill = (req, res, next) => {
 		  console.log('Table exists!.');
 	    }
 		else {
-        // pass the error to the express error handler
+        	// pass the error to the express error handler
 			return next(err);
 		}
       }
@@ -67,7 +67,8 @@ exports.fill = (req, res, next) => {
 	  }
     });
 	// fill table with data
-	dictionary.forEach((word, idx) => {
+	var counter;
+	dictionary.forEach((word, idx, array) => {
 		word = word.toUpperCase();
 		client.query('INSERT INTO vocabulary (text) VALUES ($1);', [word], function (err, result) {
 		  done(); //this done callback signals the pg driver that the connection can be closed or returned to the connection pool
@@ -76,20 +77,35 @@ exports.fill = (req, res, next) => {
 			return next(err);
 		  }
 		  else {
-			console.log('Value '+(idx+1)+' inserted.');
+			counter++;
+			console.log('Value #' + counter + ' inserted.');
+			if(counter === array.length){
+				console.log('Total #' + counter + ' inserted.');
+				res.render('query.jade', { result: 'Inserted ' + counter + ' rows.' });
+			}  
 		  }
 		});
 	});
-	// select all from 
-	client.query('SELECT * FROM vocabulary ', [], function (err, result) {
-      done(); //this done callback signals the pg driver that the connection can be closed or returned to the connection pool
-      if (err) {
-        // pass the error to the express error handler
-        return next(err);
-      }
-	  else{
-		res.render('test.jade', { data: result.rows });
-	  }
-    });
   });
+};
+exports.watch = (req, res, next)=>{
+	exports.engine = 'jade';
+	const pg = require('pg');
+	const connStr = process.env.DATABASE_URL || 'postgres://postgres:root@localhost:5432/postgres';
+	pg.connect(connStr, (err, client, done) => {
+		if (err) {
+			// pass the error to the express error handler
+			return next(err);
+		}
+		client.query('SELECT * FROM vocabulary ', [], (err, result) => {
+			done(); //this done callback signals the pg driver that the connection can be closed
+			if (err) {
+				// pass the error to the express error handler
+				return next(err);
+			}
+	  		else {
+				res.render('watch.jade', { data: result.rows });
+	  		}
+		});
+	});
 };
